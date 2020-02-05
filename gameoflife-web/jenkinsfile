@@ -7,9 +7,7 @@ node {
    git 'https://github.com/chakri1998/gol.git'
   }
     
- def project_path="gameoflife-web/"
  
- dir(project_path) {
     
   stage('Maven-Clean') {
    sh label: '', script: 'mvn clean'
@@ -61,7 +59,9 @@ node {
     server.download(downloadSpec)
    
 }
-
+def project_path="gameoflife-web/"
+ 
+ dir(project_path) {
    stage('Docker-Stage-Deployment') {
    sh label: '', script: 'docker-compose up -d --build'
   }
