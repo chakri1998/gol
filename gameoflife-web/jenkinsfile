@@ -29,7 +29,9 @@ node {
    stage('Maven-Package') {
    sh label: '', script: 'mvn package'
   }
-  
+  def project_path="gameoflife-web/"
+ 
+ dir(project_path) {
    stage('Archive-Artifacts') {
    archiveArtifacts 'target/*.war'
   }
@@ -38,7 +40,7 @@ node {
         def server= Artifactory.server 'Artifactory'
                     def uploadSpec= """{
                         "files": [{
-                        "pattern": "/home/mtadminnuvepro/.jenkins/workspace/gol/gol/gameoflife-web/target/*.war",
+                        "pattern": "/home/mtadminnuvepro/.jenkins/workspace/gol/gameoflife-web/target/*.war",
                         "target": "gol"}]
                     }"""
         server.upload(uploadSpec)
@@ -59,9 +61,7 @@ node {
     server.download(downloadSpec)
    
 }
-def project_path="gameoflife-web/"
- 
- dir(project_path) {
+
    stage('Docker-Stage-Deployment') {
    sh label: '', script: 'docker-compose up -d --build'
   }
