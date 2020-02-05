@@ -7,7 +7,7 @@ node {
    git 'https://github.com/chakri1998/gol.git'
   }
     
- def project_path="gol/gameoflife-web"
+ def project_path="gameoflife-web/"
  
  dir(project_path) {
     
